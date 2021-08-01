@@ -1,0 +1,279 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a
+        class="btn btn-navbar"
+        data-toggle="collapse"
+        data-target=".navbar-inverse-collapse"
+      >
+        <i class="icon-reorder shaded"></i>
+      </a>
+
+      <a class="brand" href="index.html">
+        PriSports
+      </a>
+
+      <div class="nav-collapse collapse navbar-inverse-collapse">
+        <ul class="nav pull-right">
+          <li>
+            <!--
+                    <a (click)="onSignupClick()">
+                      Sign Up
+                    </a>-->
+          </li>
+          <li>
+            <a>
+              New Here?
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Register
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.nav-collapse -->
+    </div>
+  </div>
+  <!-- /navbar-inner -->
+</div>
+<!-- /navbar -->
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="module module-login span4 offset4">
+        <form class="form-vertical">
+          <div class="module-head">
+            <h3>Register</h3>
+          </div>
+          <div class="module-body">
+            <div class="control-group">
+              <div class="controls row-fluid">
+                <img
+                  src="/assets/images/admin.png"
+                  style="width: 200px; margin-left: 65px; padding-bottom: 10px;"
+                  [hidden]="admin_state == false"
+                />
+                <img
+                  src="/assets/images/athlete.png"
+                  style="width: 200px; margin-left: 65px; padding-bottom: 10px;"
+                />
+                <img
+                  src="/assets/images/coach.png"
+                  style="width: 200px; margin-left: 65px; padding-bottom: 10px;"
+                  [hidden]="couch_state == false"
+                />
+
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="username"
+                    type="text"
+                    class="form-control"
+                    name="first"
+                    placeholder="username"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls row-fluid">
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="password"
+                    type="password"
+                    class="form-control"
+                    name="first"
+                    placeholder="password"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="controls row-fluid">
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="email"
+                    type="text"
+                    class="form-control"
+                    name="first"
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3>
+                Select the game(s) in which you want to be enrolled. Also add
+                your rank; choosing a higher rank means that you are good at the
+                game and vice versa.
+              </h3>
+
+              <div class="radio">
+                <label>
+                  <input
+                    [(ngModel)]="Tennis"
+                    type="radio"
+                    value="1"
+                    name="optradio2"
+                  />Tennis
+                </label>
+              </div>
+              <li class="nav-user dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  {{ player_level_Tennis }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a (click)="Set_player_level_Tennis('beginner')"
+                      >beginner</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_player_level_Tennis('medium')">medium</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_player_level_Tennis('advance')">advance</a>
+                  </li>
+                </ul>
+              </li>
+              <br />
+              <div class="slidecontainer"></div>
+              <div class="radio">
+                <label
+                  ><input
+                    [(ngModel)]="Badminton"
+                    type="radio"
+                    value="1"
+                    name="optradio3"
+                  />Badminton</label
+                >
+              </div>
+              <li class="nav-user dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  {{ player_level_Badminton }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a (click)="Set_player_level_Badminton('beginner')"
+                      >beginner</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_player_level_Badminton('medium')">medium</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_player_level_Badminton('advance')"
+                      >advance</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <br />
+              <div class="radio">
+                <label
+                  ><input
+                    [(ngModel)]="Table_Tennis"
+                    type="radio"
+                    value="1"
+                    name="optradio4"
+                  />Table tennis</label
+                >
+              </div>
+              <li class="nav-user dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  {{ player_level_Table_Tennis }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a (click)="Set_player_level_Table_Tennis('beginner')"
+                      >beginner</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_player_level_Table_Tennis('medium')"
+                      >medium</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_player_level_Table_Tennis('advance')"
+                      >advance</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <br />
+              <div class="radio">
+                <label
+                  ><input
+                    [(ngModel)]="Squash"
+                    type="radio"
+                    value="1"
+                    name="optradio5"
+                  />Squash</label
+                >
+              </div>
+              <li class="nav-user dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  {{ player_level_Squash }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a (click)="Set_player_level_Squash('beginner')"
+                      >beginner</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_player_level_Squash('medium')">medium</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_player_level_Squash('advance')">advance</a>
+                  </li>
+                </ul>
+              </li>
+              <br />
+              <br />
+            </div>
+
+            <div class="control-group">
+              <div class="controls row-fluid">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lg btn-block"
+                  (click)="Submit()"
+                  href="http://localhost:4200/"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="module-foot">
+            <div class="control-group">
+              <div class="controls clearfix">
+                <label class="checkbox">
+                  <input type="checkbox" /> Remember me
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/.wrapper-->
+
+<div class="footer">
+  <div class="container">
+    <b class="copyright">&copy; 2014 Edmin - EGrappler.com </b> All rights
+    reserved.
+  </div>
+</div>

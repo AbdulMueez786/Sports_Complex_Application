@@ -1,0 +1,112 @@
+<div *ngIf="found == false; then option1; else option2"></div>
+<ng-template #option1>
+  <h3>No Schedule yet!</h3>
+</ng-template>
+<ng-template #option2>
+  <h3>Schedule Details</h3>
+  <li class="nav-user dropdown" style="margin-left: 2%;">
+    <a>Select Day:</a><br />
+    <a
+      href="#"
+      class="dropdown-toggle"
+      data-toggle="dropdown"
+      style="margin-left: 5%;"
+    >
+      {{ Day }}
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu" style="margin-left: 5%;">
+      <li>
+        <a (click)="showMonday()">Monday</a>
+      </li>
+      <li>
+        <a (click)="showTuesday()">Tuesday</a>
+      </li>
+      <li>
+        <a (click)="showWednesday()">Wednesday</a>
+      </li>
+      <li>
+        <a (click)="showThursday()">Thursday</a>
+      </li>
+      <li>
+        <a (click)="showFriday()">Friday</a>
+      </li>
+      <li>
+        <a (click)="showSaturday()">Saturday</a>
+      </li>
+    </ul>
+  </li>
+  <div class="module-body table">
+    <table class="table table-message">
+      <tbody>
+        <tr class="heading">
+          <td class="cell-icon"></td>
+          <td class="cell-title">8:00-8:30</td>
+          <td class="cell-title">8:30-9:00</td>
+          <td class="cell-title">9:00-9:30</td>
+          <td class="cell-title">9:30-10:00</td>
+          <td class="cell-title">11:00-11:30</td>
+          <td class="cell-title">11:30-12:00</td>
+          <td class="cell-title">12:00-12:30</td>
+          <td class="cell-title">12:30-1:00</td>
+          <td class="cell-title">3:00-3:30</td>
+          <td class="cell-title">3:30-4:00</td>
+          <td class="cell-title">4:00-4:30</td>
+          <td class="cell-title">4:30-5:00</td>
+        </tr>
+        <tr>
+          <!-- <div *ngIf="apiService.username_Player === s.username; then go"></div>
+          <ng-template #go> -->
+          <td class="cell-icon"></td>
+          <div *ngIf="this.DaySchedule == '8:00 am'; then op1"></div>
+          <div *ngIf="this.DaySchedule == '11:00 am'; then op2"></div>
+          <div *ngIf="this.DaySchedule == '3:00 am'; then op3"></div>
+
+          <ng-template #op1>
+            <td class="cell-title">{{ T1 }}</td>
+            <td class="cell-title">{{ T2 }}</td>
+            <td class="cell-title">{{ T3 }}</td>
+            <td class="cell-title">{{ T4 }}</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+          </ng-template>
+          <ng-template #op2>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">{{ T1 }}</td>
+            <td class="cell-title">{{ T2 }}</td>
+            <td class="cell-title">{{ T3 }}</td>
+            <td class="cell-title">{{ T4 }}</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+          </ng-template>
+          <ng-template #op3>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">-</td>
+            <td class="cell-title">{{ T1 }}</td>
+            <td class="cell-title">{{ T2 }}</td>
+            <td class="cell-title">{{ T3 }}</td>
+            <td class="cell-title">{{ T4 }}</td>
+          </ng-template>
+          <!-- </ng-template> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

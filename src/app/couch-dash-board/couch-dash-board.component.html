@@ -1,0 +1,398 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a
+        class="btn btn-navbar"
+        data-toggle="collapse"
+        data-target=".navbar-inverse-collapse"
+      >
+        <i class="icon-reorder shaded"></i>
+      </a>
+
+      <a class="brand" href="index.html">
+        PriSports
+      </a>
+
+      <div class="nav-collapse collapse navbar-inverse-collapse">
+        <ul class="nav pull-right">
+          <li class="nav-user dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="/assets/images/coach.png" class="nav-avatar" />
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a>Your Profile</a></li>
+              <li><a>Edit Profile</a></li>
+              <li><a>Account Settings</a></li>
+              <li class="divider"></li>
+              <li><a>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.nav-collapse -->
+    </div>
+  </div>
+  <!-- /navbar-inner -->
+</div>
+<!-- /navbar -->
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <div class="sidebar">
+          <ul class="widget widget-menu unstyled">
+            <li class="active">
+              <a (click)="ShowMatches()">
+                Matches
+              </a>
+            </li>
+            <li class="active">
+              <a (click)="ShowPractiseSession()">
+                Practise Session
+              </a>
+            </li>
+          </ul>
+
+          <!--/.widget-nav-->
+        </div>
+        <!--/.sidebar-->
+      </div>
+      <!--/.span3-->
+
+      <div class="span9" [hidden]="show == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head"></div>
+
+            <div class="module-body table">
+              <h1 style="padding: 10%; margin-left: 25%;">WELCOME COUCH</h1>
+            </div>
+            <div class="module-foot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="span9" [hidden]="showmatches == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head">
+              <h3>Matches</h3>
+            </div>
+
+            <div class="module-body table">
+              <table class="table table-message">
+                <tbody>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">1st Player</td>
+                    <td class="cell-title">2nd Player</td>
+                    <td class="cell-title">Couch</td>
+                    <td class="cell-icon"></td>
+                  </tr>
+                  <tr *ngFor="let i of matches">
+                    <td
+                      class="cell-icon"
+                      [hidden]="apiService.Couch_username == i.Couch_username"
+                    ></td>
+                    <td
+                      class="cell-title"
+                      [hidden]="apiService.Couch_username !== i.Couch_username"
+                    >
+                      {{ i.Game }}
+                    </td>
+                    <td
+                      class="cell-title"
+                      [hidden]="apiService.Couch_username !== i.Couch_username"
+                    >
+                      {{ i.Player1_username }}
+                    </td>
+                    <td
+                      class="cell-title"
+                      [hidden]="apiService.Couch_username !== i.Couch_username"
+                    >
+                      {{ i.Player2_username }}
+                    </td>
+                    <td
+                      class="cell-title"
+                      [hidden]="apiService.Couch_username !== i.Couch_username"
+                    >
+                      {{ i.Couch_username }}
+                    </td>
+                    <td
+                      [hidden]="apiService.Couch_username !== i.Couch_username"
+                    >
+                      <div class="pull-right">
+                        <a
+                          onclick="document.getElementById('id013').style.display='block'"
+                          class="btn btn-primary"
+                          (click)="StoreObj(i)"
+                          >Done</a
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-foot"></div>
+
+            <div id="id013" class="modal">
+              <form class="modal-content animate">
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="p1_raking"
+                    type="text"
+                    class="form-control"
+                    name="first2"
+                    placeholder="Player1 Ranking"
+                  />
+                </div>
+                <div class="nav-collapse collapse navbar-inverse-collapse">
+                  <ul class="nav pull-right">
+                    <li class="nav-user dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        1st Player Attendance{{ Player1_Attendence }}
+                        <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a (click)="Setattendence('P', 'p1')">P</a></li>
+                        <li><a (click)="Setattendence('A', 'p1')">A</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="p2_ranking"
+                    type="text"
+                    class="form-control"
+                    name="first3"
+                    placeholder="Player2 Ranking"
+                  />
+                </div>
+                <div class="nav-collapse collapse navbar-inverse-collapse">
+                  <ul class="nav pull-right">
+                    <li class="nav-user dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        2nd Player Attendance {{ Player2_Attendence }}
+                        <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a (click)="Setattendence('P', 'p2')">P</a></li>
+                        <li><a (click)="Setattendence('A', 'p2')">A</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="Result"
+                    type="text"
+                    class="form-control"
+                    name="first1"
+                    placeholder="Result"
+                  />
+                </div>
+
+                <div class="c1" style="background-color: #f1f1f1;">
+                  <button
+                    class="login"
+                    type="button"
+                    onclick="document.getElementById('id013').style.display='none'"
+                    class="cancelbtn"
+                    (click)="Matches()"
+                  >
+                    Done
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!--/.content-->
+      </div>
+      <!--/.span9-->
+
+      <div class="span9" [hidden]="showpractisesession == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head">
+              <h3>Practise Session</h3>
+            </div>
+
+            <div id="id011" class="modal">
+              <form class="modal-content animate">
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="p1_raking"
+                    type="text"
+                    class="form-control"
+                    name="first2"
+                    placeholder="Player1 Ranking"
+                  />
+                </div>
+                <div class="nav-collapse collapse navbar-inverse-collapse">
+                  <ul class="nav pull-right">
+                    <li class="nav-user dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        1st Player Attendance{{ Player1_Attendence }}
+                        <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a (click)="Setattendence('P', 'p1')">P</a></li>
+                        <li><a (click)="Setattendence('A', 'p1')">A</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="p2_ranking"
+                    type="text"
+                    class="form-control"
+                    name="first3"
+                    placeholder="Player2 Ranking"
+                  />
+                </div>
+                <div class="nav-collapse collapse navbar-inverse-collapse">
+                  <ul class="nav pull-right">
+                    <li class="nav-user dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        2nd Player Attendance {{ Player2_Attendence }}
+                        <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a (click)="Setattendence('P', 'p2')">P</a></li>
+                        <li><a (click)="Setattendence('A', 'p2')">A</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="Result"
+                    type="text"
+                    class="form-control"
+                    name="first1"
+                    placeholder="Result"
+                  />
+                </div>
+
+                <div class="c1" style="background-color: #f1f1f1;">
+                  <button
+                    class="login"
+                    type="button"
+                    onclick="document.getElementById('id011').style.display='none'"
+                    class="cancelbtn"
+                    (click)="Done()"
+                  >
+                    Done
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="module-body table">
+              <table class="table table-message">
+                <tbody>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+
+                    <td class="cell-title">1st Player</td>
+                    <td class="cell-title">2nd Player</td>
+                    <td class="cell-title">1st Player Ranking</td>
+                    <td class="cell-title">2nd Player Ranking</td>
+                    <td class="cell-title">Result</td>
+                    <td class="cell-title">Coach</td>
+                    <td class="cell-title"></td>
+                  </tr>
+                  <tr *ngFor="let i of sessions">
+                    <td
+                      [hidden]="apiService.Couch_username != i.Couch_username"
+                      class="cell-icon"
+                    ></td>
+
+                    <td
+                      [hidden]="apiService.Couch_username != i.Couch_username"
+                      class="cell-title"
+                    >
+                      {{ i.Player1_username }}
+                    </td>
+                    <td
+                      [hidden]="apiService.Couch_username != i.Couch_username"
+                      class="cell-title"
+                    >
+                      {{ i.Player2_username }}
+                    </td>
+                    <td
+                      [hidden]="apiService.Couch_username != i.Couch_username"
+                      class="cell-title"
+                    >
+                      {{ i.Player1_Ranking }}
+                    </td>
+                    <td
+                      [hidden]="apiService.Couch_username != i.Couch_username"
+                      class="cell-title"
+                    >
+                      {{ i.Player2_Ranking }}
+                    </td>
+                    <td
+                      [hidden]="apiService.Couch_username != i.Couch_username"
+                      class="cell-title"
+                    >
+                      {{ i.Result }}
+                    </td>
+                    <td
+                      [hidden]="apiService.Couch_username != i.Couch_username"
+                      class="cell-title"
+                    >
+                      {{ i.Couch_username }}
+                    </td>
+                    <td
+                      [hidden]="apiService.Couch_username != i.Couch_username"
+                    >
+                      <div class="pull-right">
+                        <a
+                          onclick="document.getElementById('id011').style.display='block'"
+                          class="btn btn-primary"
+                          (click)="change(i)"
+                          >Done</a
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--/.container-->
+        </div>
+        <!--/.wrapper-->
+
+        <div class="footer">
+          <div class="container">
+            <b class="copyright">&copy; 2014 Edmin - EGrappler.com </b> All
+            rights reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

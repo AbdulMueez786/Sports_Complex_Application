@@ -1,0 +1,307 @@
+<div class="span9">
+  <div class="content">
+    <div class="module message">
+      <div class="module-head">
+        <h3>Create Practise Session</h3>
+      </div>
+
+      <ul id="UL">
+        <li id="LI" *ngFor="let i of apiService.Fully_Registered_players">
+          <a (click)="s(i)"> {{ i.username }}</a>
+        </li>
+      </ul>
+      <div [hidden]="showSession == false">
+        <h2>{{ Day }}</h2>
+
+        <!-- Tennis-->
+        <div [hidden]="show_Tennis == false">
+          <h3>Tennis Practise Session</h3>
+
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a> Selected Player 2 : </a><br />
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Selected_Player2_Tennis }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of apiService.Fully_Registered_players">
+                <a
+                  *ngIf="
+                    i.username !== Selected_Player1 &&
+                    AvoidSessionDuplication('Tennis', i.username) &&
+                    cumpare_Priority(Selected_Player1, i.username, 'Tennis') &&
+                    cumpare_schedule(Selected_Player1, i.username)
+                  "
+                  (click)="seec(i.username, 2, 1)"
+                >
+                  {{ i.username }}</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ TennisCourt }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of Tennis_Courts">
+                <a (click)="Select(1, i)"> {{ i }}</a>
+              </li>
+            </ul>
+          </li>
+
+          <br />
+
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a> Select Couch: </a><br />
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Select_Couch_Tennis }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of couches">
+                <a (click)="seec(i.username, 3, 1)"> {{ i.username }}</a>
+              </li>
+            </ul>
+          </li>
+
+          <button (click)="PractiseSessionCreated(1)">Done</button>
+        </div>
+
+        <!--Game Bedminton-->
+        <div [hidden]="showbadminton == false">
+          <h3>Badminton Practise Session</h3>
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a> Selected Player 2 : </a><br />
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Selected_Player2_Badminton }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of apiService.Fully_Registered_players">
+                <a
+                  *ngIf="
+                    i.username !== Selected_Player1 &&
+                    AvoidSessionDuplication('badminton', i.username) &&
+                    cumpare_Priority(
+                      Selected_Player1,
+                      i.username,
+                      'badminton'
+                    ) &&
+                    cumpare_schedule(Selected_Player1, i.username)
+                  "
+                  (click)="seec(i.username, 2, 3)"
+                >
+                  {{ i.username }}</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <br />
+
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ BadmintonCourt }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of Badminton_Courts">
+                <a (click)="Select(2, i)"> {{ i }}</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a> Select Couch: </a><br />
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Select_Couch_Badminton }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of couches">
+                <a (click)="seec(i.username, 3, 3)"> {{ i.username }}</a>
+              </li>
+            </ul>
+          </li>
+          <button (click)="PractiseSessionCreated(3)">Done</button>
+        </div>
+        <!--Table Tennis-->
+        <div [hidden]="showtabletennis == false">
+          <h3>Table Tennis Practise Session</h3>
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a> Selected Player 2 : </a><br />
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Selected_Player2_TennisTable }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of apiService.Fully_Registered_players">
+                <a
+                  *ngIf="
+                    i.username !== Selected_Player1 &&
+                    AvoidSessionDuplication('table_tennis', i.username) &&
+                    cumpare_Priority(
+                      Selected_Player1,
+                      i.username,
+                      'table_tennis'
+                    ) &&
+                    cumpare_schedule(Selected_Player1, i.username)
+                  "
+                  (click)="seec(i.username, 2, 2)"
+                >
+                  {{ i.username }}</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <br />
+
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ TableTennisCourt }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of TennisTable_CourtS">
+                <a (click)="Select(3, i)"> {{ i }}</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a> Select Couch: </a><br />
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Select_Couch_TennisTable }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of couches">
+                <a (click)="seec(i.username, 3, 2)"> {{ i.username }}</a>
+              </li>
+            </ul>
+          </li>
+          <button (click)="PractiseSessionCreated(2)">Done</button>
+        </div>
+        <!---Squash-->
+        <div [hidden]="showsquash == false">
+          <h3>Squash Practise Session</h3>
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a> Selected Player 2 : </a><br />
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Selected_Player2_Squash }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of apiService.Fully_Registered_players">
+                <a
+                  *ngIf="
+                    i.username !== Selected_Player1 &&
+                    AvoidSessionDuplication('Squash', i.username) &&
+                    cumpare_Priority(Selected_Player1, i.username, 'Squash') &&
+                    cumpare_schedule(Selected_Player1, i.username)
+                  "
+                  (click)="seec(i.username, 2, 4)"
+                >
+                  {{ i.username }}</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <br />
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Squash_Carts }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of Squash_Carts">
+                <a (click)="Select(4, i)"> {{ i }}</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-user dropdown" style="margin-left: 2%;">
+            <a> Select Couch: </a><br />
+            <a
+              href="#"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              style="margin-left: 5%;"
+            >
+              {{ Select_Couch_Squash }}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="margin-left: 5%;">
+              <li *ngFor="let i of couches">
+                <a (click)="seec(i.username, 3, 4)"> {{ i.username }}</a>
+              </li>
+            </ul>
+          </li>
+          <button (click)="PractiseSessionCreated(4)">Done</button>
+        </div>
+      </div>
+
+      <div class="module-body table"></div>
+    </div>
+  </div>
+</div>

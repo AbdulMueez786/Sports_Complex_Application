@@ -1,0 +1,56 @@
+<div class="span9">
+  <div class="content">
+    <div class="module message">
+      <div [hidden]="show == false">
+        We will try set match for you.
+      </div>
+      <div class="module-head" [hidden]="show == true">
+        <h3>Set Match</h3>
+      </div>
+      <div [hidden]="show == true">
+        <li class="nav-user dropdown" style="margin-left: 2%;">
+          <a> Select Game: </a><br />
+          <a
+            href="#"
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            style="margin-left: 5%;"
+          >
+            {{ Select_Game }}
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu" style="margin-left: 5%;">
+            <li *ngFor="let i of games">
+              <a (click)="SetGame(i)"> {{ i }}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-user dropdown" style="margin-left: 2%;">
+          <a> Selected Player 2 : </a><br />
+          <a
+            href="#"
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            style="margin-left: 5%;"
+          >
+            {{ Selected_Player2 }}
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu" style="margin-left: 5%;">
+            <li *ngFor="let i of apiService.Fully_Registered_players">
+              <a
+                *ngIf="i.username !== apiService.username_Player"
+                (click)="SetPlayer2(i.username)"
+              >
+                {{ i.username }}</a
+              >
+            </li>
+          </ul>
+        </li>
+        <button (click)="SendNotification()">Done</button>
+      </div>
+
+      <div class="module-body table"></div>
+    </div>
+  </div>
+</div>

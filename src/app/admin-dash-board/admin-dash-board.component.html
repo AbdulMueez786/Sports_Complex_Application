@@ -1,0 +1,680 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a
+        class="btn btn-navbar"
+        data-toggle="collapse"
+        data-target=".navbar-inverse-collapse"
+      >
+        <i class="icon-reorder shaded"></i>
+      </a>
+
+      <a class="brand" href="index.html">
+        PriSports
+      </a>
+
+      <div class="nav-collapse collapse navbar-inverse-collapse">
+        <ul class="nav pull-right">
+          <br />
+
+          <li class="nav-user dropdown">
+            <a class="notification" data-toggle="dropdown">
+              <img
+                src="https://image.freepik.com/free-icon/church-bell_318-9123.jpg"
+                style="width: 30px; height: 30px;"
+              />
+              <span class="badge">{{ apiService.notification.length }}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li *ngFor="let i of apiService.notification">
+                <a (click)="DoneNotification(i)"
+                  >{{ i.Game }} Match {{ i.Player1_username }} want to play with
+                  {{ i.Player2_username }}</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-user dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="/assets/images/admin.png" class="nav-avatar" />
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a>Your Profile</a></li>
+              <li><a>Edit Profile</a></li>
+              <li><a>Account Settings</a></li>
+              <li class="divider"></li>
+              <li><a>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.nav-collapse -->
+    </div>
+  </div>
+  <!-- /navbar-inner -->
+</div>
+<!-- /navbar -->
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <div class="sidebar">
+          <ul class="widget widget-menu unstyled">
+            <li class="active">
+              <a (click)="ShowPlayers()">
+                Players
+              </a>
+            </li>
+            <li class="active">
+              <a (click)="ShowCouches()">
+                Coaches
+              </a>
+            </li>
+            <li class="active">
+              <a (click)="ShowGames()">
+                Games
+              </a>
+            </li>
+            <li>
+              <a class="collapsed" data-toggle="collapse" href="#togglePages2">
+                <i class="icon-chevron-down pull-right"></i
+                ><i class="icon-chevron-up pull-right"></i>
+                Matches
+              </a>
+              <ul id="togglePages2" class="collapse unstyled">
+                <li>
+                  <a (click)="ShowMatches()">
+                    view Matches
+                  </a>
+                </li>
+                <li>
+                  <a (click)="CreateMatch()">
+                    Create Match
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a class="collapsed" data-toggle="collapse" href="#togglePages1">
+                <i class="icon-chevron-down pull-right"></i
+                ><i class="icon-chevron-up pull-right"></i>
+                Practice Session
+              </a>
+              <ul id="togglePages1" class="collapse unstyled">
+                <li>
+                  <a (click)="ShowPractiseSession()">
+                    View Practice Session
+                  </a>
+                </li>
+                <li>
+                  <a (click)="ShowPractice()">
+                    Create Practice Session
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <!--/.widget-nav-->
+        </div>
+        <!--/.sidebar-->
+      </div>
+      <!--/.span3-->
+
+      <app-create-practice-session
+        [hidden]="showpractice == false"
+      ></app-create-practice-session>
+      <app-create-match [hidden]="matchflag == false"> </app-create-match>
+      <div class="span9" [hidden]="show == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head"></div>
+
+            <div class="module-body table">
+              <h1 style="padding: 10%; margin-left: 25%;">WELCOME Admin</h1>
+            </div>
+            <div class="module-foot"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="span9" [hidden]="showplayer == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head">
+              <h3>Players</h3>
+            </div>
+            <div class="pull-right">
+              <a
+                onclick="document.getElementById('id011').style.display='block'"
+                class="btn btn-primary"
+                (click)="onCreate()"
+                >Create Task</a
+              >
+            </div>
+            <div id="id011" class="modal">
+              <form class="modal-content animate">
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="Edit_player_username"
+                    type="text"
+                    class="form-control"
+                    name="first1"
+                    placeholder="username"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="Edit_player_password"
+                    type="text"
+                    class="form-control"
+                    name="first2"
+                    placeholder="password"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="Edit_player_email"
+                    type="text"
+                    class="form-control"
+                    name="first3"
+                    placeholder="Email"
+                  />
+                </div>
+                <div class="radio">
+                  <label>
+                    <input
+                      [(ngModel)]="Edit_player_Tennis"
+                      type="radio"
+                      value="1"
+                      name="optradio2"
+                    />Tennis
+                  </label>
+                </div>
+                <li class="nav-user dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{ Edit_player_level_Tennis }}
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a (click)="EDIT_player_level_Tennis('beginner')"
+                        >beginner</a
+                      >
+                    </li>
+                    <li>
+                      <a (click)="EDIT_player_level_Tennis('medium')">medium</a>
+                    </li>
+                    <li>
+                      <a (click)="EDIT_player_level_Tennis('advance')"
+                        >advance</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <br />
+                <div class="slidecontainer"></div>
+                <div class="radio">
+                  <label
+                    ><input
+                      [(ngModel)]="Edit_player_Badminton"
+                      type="radio"
+                      value="1"
+                      name="optradio3"
+                    />Badminton</label
+                  >
+                </div>
+                <li class="nav-user dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{ Edit_player_level_Badminton }}
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a (click)="EDIT_player_level_Badminton('beginner')"
+                        >beginner</a
+                      >
+                    </li>
+                    <li>
+                      <a (click)="EDIT_player_level_Badminton('medium')"
+                        >medium</a
+                      >
+                    </li>
+                    <li>
+                      <a (click)="EDIT_player_level_Badminton('advance')"
+                        >advance</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <br />
+                <div class="radio">
+                  <label
+                    ><input
+                      [(ngModel)]="Edit_player_Table_Tennis"
+                      type="radio"
+                      value="1"
+                      name="optradio4"
+                    />Table tennis</label
+                  >
+                </div>
+                <li class="nav-user dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{ Edit_player_level_Table_Tennis }}
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a (click)="EDIT_player_level_Table_Tennis('beginner')"
+                        >beginner</a
+                      >
+                    </li>
+                    <li>
+                      <a (click)="EDIT_player_level_Table_Tennis('medium')"
+                        >medium</a
+                      >
+                    </li>
+                    <li>
+                      <a (click)="EDIT_player_level_Table_Tennis('advance')"
+                        >advance</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <br />
+                <div class="radio">
+                  <label
+                    ><input
+                      [(ngModel)]="Edit_Player_Squash"
+                      type="radio"
+                      value="1"
+                      name="optradio5"
+                    />Squash</label
+                  >
+                </div>
+                <li class="nav-user dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {{ Edit_player_level_Squash }}
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a (click)="EDIT_player_level_Squash('beginner')"
+                        >beginner</a
+                      >
+                    </li>
+                    <li>
+                      <a (click)="EDIT_player_level_Squash('medium')">medium</a>
+                    </li>
+                    <li>
+                      <a (click)="EDIT_player_level_Squash('advance')"
+                        >advance</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <div class="c1" style="background-color: #f1f1f1;">
+                  <button
+                    class="login"
+                    type="button"
+                    onclick="document.getElementById('id011').style.display='none'"
+                    class="cancelbtn"
+                    (click)="Done()"
+                  >
+                    Done
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="module-body table">
+              <table class="table table-message">
+                <tbody>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">Player</td>
+                    <td class="cell-title">Password</td>
+                    <td class="cell-title">Email</td>
+                    <td class="cell-title">Level in Tennis</td>
+                    <td class="cell-title">Level in Badminton</td>
+                    <td class="cell-title">Level in Table tennis</td>
+                    <td class="cell-title">Level in Squash</td>
+                    <td class="cell-title"></td>
+                  </tr>
+                  <tr *ngFor="let i of players; let j = index">
+                    <td class="cell-icon"><i class="icon-checker high"></i></td>
+                    <td class="cell-title">
+                      <div>
+                        {{ i.username }}
+                      </div>
+                    </td>
+                    <td class="cell-title">
+                      <div>
+                        {{ i.password }}
+                      </div>
+                    </td>
+
+                    <td class="cell-title">
+                      <div>
+                        {{ i.email }}
+                      </div>
+                    </td>
+                    <td class="cell-title">
+                      <div *ngIf="i.rank_tennis !== 'choose level'">
+                        {{ i.rank_tennis }}
+                      </div>
+                      <div *ngIf="i.rank_tennis === 'choose level'">
+                        No
+                      </div>
+                    </td>
+                    <td class="cell-title">
+                      <div *ngIf="i.rank_badminton !== 'choose level'">
+                        {{ i.rank_badminton }}
+                      </div>
+                      <div *ngIf="i.rank_badminton === 'choose level'">
+                        No
+                      </div>
+                    </td>
+                    <td class="cell-title">
+                      <div *ngIf="i.rank_table_tennis !== 'choose level'">
+                        {{ i.rank_table_tennis }}
+                      </div>
+                      <div *ngIf="i.rank_table_tennis === 'choose level'">
+                        No
+                      </div>
+                    </td>
+                    <td class="cell-title">
+                      <div *ngIf="i.rank_Squash !== 'choose level'">
+                        {{ i.rank_Squash }}
+                      </div>
+                      <div *ngIf="i.rank_Squash === 'choose level'">
+                        No
+                      </div>
+                    </td>
+                    <td class="cell-title">
+                      <div class="pull-left">
+                        <div class="btn-group">
+                          <button
+                            class="btn dropdown-toggle btn-primary"
+                            data-toggle="dropdown"
+                          >
+                            change
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a (click)="onRemove(i, j)">Remove</a></li>
+                            <li>
+                              <a
+                                onclick="document.getElementById('id011').style.display='block'"
+                                (click)="onEdit(i)"
+                                >Edit</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-foot"></div>
+          </div>
+        </div>
+        <!--/.content-->
+      </div>
+      <!--/.span9-->
+      <div class="span9" [hidden]="showcouches == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head">
+              <h3>Coaches</h3>
+            </div>
+
+            <div class="pull-right">
+              <a
+                onclick="document.getElementById('id012').style.display='block'"
+                class="btn btn-primary"
+                (click)="onCreate()"
+                >Create Task</a
+              >
+            </div>
+            <div id="id012" class="modal">
+              <form class="modal-content animate">
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="couchname"
+                    type="text"
+                    class="form-control"
+                    name="first1"
+                    placeholder="username"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    [(ngModel)]="couchpassword"
+                    type="text"
+                    class="form-control"
+                    name="first2"
+                    placeholder="password"
+                  />
+                </div>
+                <div class="c1" style="background-color: #f1f1f1;">
+                  <button
+                    class="login"
+                    type="button"
+                    onclick="document.getElementById('id012').style.display='none'"
+                    class="cancelbtn"
+                    (click)="Couch_Done()"
+                  >
+                    Done
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="module-body table">
+              <table class="table table-message">
+                <tbody>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">Coach</td>
+                    <td class="cell-title">password</td>
+                    <td class="cell-title"></td>
+                  </tr>
+                  <tr *ngFor="let i of couches; let j = index">
+                    <td class="cell-icon"><i class="icon-checker high"></i></td>
+                    <td class="cell-title">
+                      <div>
+                        {{ i.username }}
+                      </div>
+                    </td>
+                    <td class="cell-title">
+                      <div>
+                        {{ i.password }}
+                      </div>
+                    </td>
+                    <td class="cell-title">
+                      <div class="pull-left">
+                        <div class="btn-group">
+                          <button
+                            class="btn dropdown-toggle btn-primary"
+                            data-toggle="dropdown"
+                          >
+                            change
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a (click)="onRemoveCouch(i, j)">Remove</a></li>
+                            <li>
+                              <a
+                                onclick="document.getElementById('id012').style.display='block'"
+                                (click)="Edit_Couch(i)"
+                                >Edit</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-foot"></div>
+          </div>
+        </div>
+        <!--/.content-->
+      </div>
+      <!--/.span9-->
+      <div class="span9" [hidden]="showgames == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head">
+              <h3>Games</h3>
+            </div>
+
+            <div class="module-body table">
+              <table class="table table-message">
+                <tbody>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">Game</td>
+                  </tr>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">Tennis</td>
+                  </tr>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">Badminton</td>
+                  </tr>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">Table Tennis</td>
+                  </tr>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">Squash</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-foot"></div>
+          </div>
+        </div>
+        <!--/.content-->
+      </div>
+      <!--/.span9-->
+      <div class="span9" [hidden]="showpractisesession == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head">
+              <h3>Practice Session</h3>
+            </div>
+
+            <div class="module-body table">
+              <table class="table table-message">
+                <tbody>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">Game</td>
+                    <td class="cell-title">1st Player</td>
+                    <td class="cell-title">2nd Player</td>
+                    <td class="cell-title">1st player attendence</td>
+                    <td class="cell-title">2nd player attendance</td>
+                    <td class="cell-title">1st Player Ranking</td>
+                    <td class="cell-title">2nd Player Ranking</td>
+                    <td class="cell-title">Game Court</td>
+
+                    <td class="cell-title">Result</td>
+                    <td class="cell-title">Coach</td>
+                  </tr>
+                  <tr *ngFor="let i of sessions">
+                    <td class="cell-icon"></td>
+                    <td class="cell-title">{{ i.Game }}</td>
+                    <td class="cell-title">{{ i.Player1_username }}</td>
+                    <td class="cell-title">{{ i.Player2_username }}</td>
+                    <td class="cell-title">{{ i.p1_attendence }}</td>
+                    <td class="cell-title">{{ i.p2_attendence }}</td>
+                    <td class="cell-title">{{ i.Player1_Ranking }}</td>
+                    <td class="cell-title">{{ i.Player2_Ranking }}</td>
+                    <td class="cell-title">{{ i.Game_Court }}</td>
+
+                    <td class="cell-title">{{ i.Result }}</td>
+                    <td class="cell-title">{{ i.Couch_username }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-foot"></div>
+          </div>
+        </div>
+        <!--/.content-->
+      </div>
+      <!--/.span9-->
+      <div class="span9" [hidden]="showmatches == false">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head">
+              <h3>Matches</h3>
+            </div>
+
+            <div class="module-body table">
+              <table class="table table-message">
+                <tbody>
+                  <tr class="heading">
+                    <td class="cell-icon"></td>
+
+                    <td class="cell-title">Game</td>
+                    <td class="cell-title">1st Player</td>
+                    <td class="cell-title">2nd Player</td>
+                    <td class="cell-title">Couah</td>
+                    <td class="cell-title">1st Player Ranking</td>
+                    <td class="cell-title">2nd Player Ranking</td>
+                    <td class="cell-title">1st Player Attendance</td>
+                    <td class="cell-title">2nd Player Attendance</td>
+                    <td class="cell-title">Result</td>
+                    <td class="cell-title">Day</td>
+                  </tr>
+                  <tr *ngFor="let i of matches">
+                    <td class="cell-icon"></td>
+
+                    <td class="cell-title">{{ i.Game }}</td>
+                    <td class="cell-title">{{ i.Player1_username }}</td>
+                    <td class="cell-title">{{ i.Player2_username }}</td>
+                    <td class="cell-title">{{ i.Couch_username }}</td>
+                    <td class="cell-title">{{ i.Player1_Ranking }}</td>
+                    <td class="cell-title">{{ i.Player2_Ranking }}</td>
+                    <td class="cell-title">{{ i.p1_attendence }}</td>
+                    <td class="cell-title">{{ i.p2_attendence }}</td>
+                    <td class="cell-title">{{ i.Result }}</td>
+                    <td class="cell-title">{{ i.DAY }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-foot"></div>
+          </div>
+        </div>
+        <!--/.content-->
+      </div>
+      <!--/.span9-->
+    </div>
+  </div>
+  <!--/.container-->
+</div>
+<!--/.wrapper-->
+
+<div class="footer">
+  <div class="container">
+    <b class="copyright">&copy; 2014 Edmin - EGrappler.com </b> All rights
+    reserved.
+  </div>
+</div>

@@ -1,0 +1,1245 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a
+        class="btn btn-navbar"
+        data-toggle="collapse"
+        data-target=".navbar-inverse-collapse"
+      >
+        <i class="icon-reorder shaded"></i>
+      </a>
+
+      <a class="brand" href="index.html">
+        PriSports
+      </a>
+
+      <div class="nav-collapse collapse navbar-inverse-collapse">
+        <ul class="nav pull-right">
+          <li class="nav-user dropdown">
+            <a href="#" class="dropdow n-toggle" data-toggle="dropdown">
+              <img src="/assets/images/athlete.png" class="nav-avatar" />
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a>Your Profile</a></li>
+              <li><a>Edit Profile</a></li>
+              <li><a>Account Settings</a></li>
+              <li class="divider"></li>
+              <li><a>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.nav-collapse -->
+    </div>
+  </div>
+  <!-- /navbar-inner -->
+</div>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <div class="sidebar">
+          <ul class="widget widget-menu unstyled">
+            <li class="active">
+              <a (click)="ShowPerformance()">
+                Your Performance
+              </a>
+            </li>
+
+            <li>
+              <a class="collapsed" data-toggle="collapse" href="#togglePages1">
+                <i class="icon-chevron-down pull-right"></i
+                ><i class="icon-chevron-up pull-right"></i>
+                Practise Session
+              </a>
+              <ul id="togglePages1" class="collapse unstyled">
+                <li>
+                  <a (click)="ShowPracticeSession()">
+                    view Practise Session
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <!--/.widget-nav-->
+
+          <ul class="widget widget-menu unstyled">
+            <li>
+              <a (click)="ShowSchedule()">Your Schedule </a>
+            </li>
+
+            <!--/.widget-nav-->
+            <li>
+              <a class="collapsed" data-toggle="collapse" href="#togglePages">
+                <i class="icon-chevron-down pull-right"></i
+                ><i class="icon-chevron-up pull-right"></i>
+                Matches
+              </a>
+              <ul id="togglePages" class="collapse unstyled">
+                <li>
+                  <a (click)="ShowMatch()">
+                    view Matches
+                  </a>
+                </li>
+                <li>
+                  <a (click)="SetMatch()">
+                    Set Match
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!--/.sidebar-->
+      </div>
+      <!--/.span3-->
+
+      <div class="span9">
+        <div class="content">
+          <div class="module message">
+            <div class="module-head"></div>
+
+            <div class="module-body table">
+              <h1 style="padding: 10%; margin-left: 25%;">
+                WELCOME {{ apiService.username_Player }}
+              </h1>
+              <app-set-match [hidden]="notification_flag == false">
+              </app-set-match>
+              <app-practice-session
+                [hidden]="show == false"
+                [found]="found"
+              ></app-practice-session>
+
+              <app-player-schedule
+                [hidden]="showSchedule == false"
+                [found]="found"
+              ></app-player-schedule>
+
+              <app-match-session
+                [hidden]="showMatch == false"
+                [found]="found"
+              ></app-match-session>
+
+              <app-performance
+                [hidden]="showPerformance == false"
+              ></app-performance>
+            </div>
+
+            <div class="module-body table" [hidden]="First_time_login == 1">
+              <h3 style="margin-left: 5%;">
+                Select opponent player level with which you want to play:
+              </h3>
+
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Tennis == 'choose level'"
+              >
+                <a>Tennis:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ openent_rank_tennis }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_openent_player_level_Tennis('beginner')"
+                      >beginner</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_openent_player_level_Tennis('medium')"
+                      >medium</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_openent_player_level_Tennis('advance')"
+                      >advance</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Badminton == 'choose level'"
+              >
+                <a>Badminton:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ openent_rank_badminton }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_openent_player_level_Badminton('beginner')"
+                      >beginner</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_openent_player_level_Badminton('medium')"
+                      >medium</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_openent_player_level_Badminton('advance')"
+                      >advance</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Table_Tennis == 'choose level'"
+              >
+                <a>Table Tennis:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ openent_rank_table_tennis }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a
+                      (click)="
+                        Set_openent_player_level_Table_Tennis('beginner')
+                      "
+                      >beginner</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_openent_player_level_Table_Tennis('medium')"
+                      >medium</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      (click)="Set_openent_player_level_Table_Tennis('advance')"
+                      >advance</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Squash == 'choose level'"
+              >
+                <a>Squash:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ openent_rank_table_Squash }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_openent_player_level_Squash('beginner')"
+                      >beginner</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_openent_player_level_Squash('medium')"
+                      >medium</a
+                    >
+                  </li>
+                  <li>
+                    <a (click)="Set_openent_player_level_Squash('advance')"
+                      >advance</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <h3 style="margin-left: 5%;">
+                Select Your Time of entry in club:
+              </h3>
+              <div style="padding-right: 1%;">
+                <div class="content">
+                  <div class="module message">
+                    <div class="module-head">
+                      <h3>Monday:</h3>
+                    </div>
+                    <div class="module-option clearfix">
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Mon"
+                          value="8:00 am"
+                          type="radio"
+                          name="optradio1"
+                        />8:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Mon"
+                          value="11:00 am"
+                          type="radio"
+                          name="optradio1"
+                        />11:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Mon"
+                          value="3:00 am"
+                          type="radio"
+                          name="optradio1"
+                        />3:00 am
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding-right: 1%;">
+                <div class="content">
+                  <div class="module message">
+                    <div class="module-head">
+                      <h3>Tuesday:</h3>
+                    </div>
+                    <div class="module-option clearfix">
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Tue"
+                          value="8:00 am"
+                          type="radio"
+                          name="optradio2"
+                        />8:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Tue"
+                          value="11:00 am"
+                          type="radio"
+                          name="optradio2"
+                        />11:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Tue"
+                          value="3:00 am"
+                          type="radio"
+                          name="optradio2"
+                        />3:00 am
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding-right: 1%;">
+                <div class="content">
+                  <div class="module message">
+                    <div class="module-head">
+                      <h3>Wednesday:</h3>
+                    </div>
+                    <div class="module-option clearfix">
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Wed"
+                          value="8:00 am"
+                          type="radio"
+                          name="optradio3"
+                        />8:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Wed"
+                          value="11:00 am"
+                          type="radio"
+                          name="optradio3"
+                        />11:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Wed"
+                          value="3:00 am"
+                          type="radio"
+                          name="optradio3"
+                        />3:00 am
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding-right: 1%;">
+                <div class="content">
+                  <div class="module message">
+                    <div class="module-head">
+                      <h3>Thursday:</h3>
+                    </div>
+                    <div class="module-option clearfix">
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Thu"
+                          value="8:00 am"
+                          type="radio"
+                          name="optradio4"
+                        />8:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Thu"
+                          value="11:00 am"
+                          type="radio"
+                          name="optradio4"
+                        />11:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Thu"
+                          value="3:00 am"
+                          type="radio"
+                          name="optradio4"
+                        />3:00 am
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding-right: 1%;">
+                <div class="content">
+                  <div class="module message">
+                    <div class="module-head">
+                      <h3>Friday:</h3>
+                    </div>
+                    <div class="module-option clearfix">
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Fri"
+                          value="8:00 am"
+                          type="radio"
+                          name="optradio5"
+                        />8:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Fri"
+                          value="11:00 am"
+                          type="radio"
+                          name="optradio5"
+                        />11:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Fri"
+                          value="3:00 am"
+                          type="radio"
+                          name="optradio5"
+                        />3:00 am
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding-right: 1%;">
+                <div class="content">
+                  <div class="module message">
+                    <div class="module-head">
+                      <h3>Saturday:</h3>
+                    </div>
+                    <div class="module-option clearfix">
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Sat"
+                          value="8:00 am"
+                          type="radio"
+                          name="optradio6"
+                        />8:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Sat"
+                          value="11:00 am"
+                          type="radio"
+                          name="optradio6"
+                        />11:00 am
+                      </label>
+                      <label class="radio-inline">
+                        <input
+                          [(ngModel)]="Sat"
+                          value="3:00 am"
+                          type="radio"
+                          name="optradio6"
+                        />3:00 am
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>Set priority of Each game on each day :</h3>
+              <h3>For Monday:</h3>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Tennis == 'choose level'"
+              >
+                <a>Tennis:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Mon_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Tennis('1', 'Mon')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('2', 'Mon')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('3', 'Mon')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('4', 'Mon')">4</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Badminton == 'choose level'"
+              >
+                <a>Badminton:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Mon_Badminton_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Badminton('1', 'Mon')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('2', 'Mon')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('3', 'Mon')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('4', 'Mon')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Table_Tennis == 'choose level'"
+              >
+                <a>Table_Tennis</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Mon_Table_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('1', 'Mon')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('2', 'Mon')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('3', 'Mon')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('4', 'Mon')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Squash == 'choose level'"
+              >
+                <a>Squash</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Mon_Squash_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Squash('1', 'Mon')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('2', 'Mon')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('3', 'Mon')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('4', 'Mon')">4</a>
+                  </li>
+                </ul>
+              </li>
+
+              <h3>For Tuesday:</h3>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Tennis == 'choose level'"
+              >
+                <a>Tennis:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Tue_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Tennis('1', 'Tue')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('2', 'Tue')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('3', 'Tue')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('4', 'Tue')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Badminton == 'choose level'"
+              >
+                <a>Badminton:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Tue_Badminton_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Badminton('1', 'Tue')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('2', 'Tue')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('3', 'Tue')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('4', 'Tue')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Table_Tennis == 'choose level'"
+              >
+                <a>Table_Tennis</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Tue_Table_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('1', 'Tue')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('2', 'Tue')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('3', 'Tue')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('4', 'Tue')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Squash == 'choose level'"
+              >
+                <a>Squash</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Tue_Squash_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Squash('1', 'Tue')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('2', 'Tue')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('3', 'Tue')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('4', 'Tue')">4</a>
+                  </li>
+                </ul>
+              </li>
+
+              <h3>For Wednesday:</h3>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Tennis == 'choose level'"
+              >
+                <a>Tennis:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Wed_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Tennis('1', 'Wed')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('2', 'Wed')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('3', 'Wed')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('4', 'Wed')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Badminton == 'choose level'"
+              >
+                <a>Badminton:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Wed_Badminton_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Badminton('1', 'Wed')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('2', 'Wed')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('3', 'Wed')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('4', 'Wed')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Table_Tennis == 'choose level'"
+              >
+                <a>Table_Tennis</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Wed_Table_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('1', 'Wed')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('2', 'Wed')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('3', 'Wed')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('4', 'Wed')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Squash == 'choose level'"
+              >
+                <a>Squash</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Wed_Squash_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Squash('1', 'Wed')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('2', 'Wed')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('3', 'Wed')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('4', 'Wed')">4</a>
+                  </li>
+                </ul>
+              </li>
+
+              <h3>For Thursday:</h3>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Tennis == 'choose level'"
+              >
+                <a>Tennis:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Thu_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Tennis('1', 'Thu')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('2', 'Thu')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('3', 'Thu')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('4', 'Thu')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Badminton == 'choose level'"
+              >
+                <a>Badminton:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Thu_Badminton_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Badminton('1', 'Thu')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('2', 'Thu')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('3', 'Thu')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('4', 'Thu')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Table_Tennis == 'choose level'"
+              >
+                <a>Table_Tennis</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Thu_Table_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('1', 'Thu')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('2', 'Thu')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('3', 'Thu')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('4', 'Thu')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Squash == 'choose level'"
+              >
+                <a>Squash</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Thu_Squash_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Squash('1', 'Thu')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('2', 'Thu')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('3', 'Thu')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('4', 'Thu')">4</a>
+                  </li>
+                </ul>
+              </li>
+
+              <h3>For Friday:</h3>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Tennis == 'choose level'"
+              >
+                <a>Tennis:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Fri_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Tennis('1', 'Fri')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('2', 'Fri')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('3', 'Fri')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('4', 'Fri')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Badminton == 'choose level'"
+              >
+                <a>Badminton:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Fri_Badminton_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Badminton('1', 'Fri')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('2', 'Fri')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('3', 'Fri')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('4', 'Fri')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Table_Tennis == 'choose level'"
+              >
+                <a>Table_Tennis</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Fri_Table_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('1', 'Fri')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('2', 'Fri')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('3', 'Fri')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('4', 'Fri')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Squash == 'choose level'"
+              >
+                <a>Squash</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Fri_Squash_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Squash('1', 'Fri')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('2', 'Fri')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('3', 'Fri')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('4', 'Fri')">4</a>
+                  </li>
+                </ul>
+              </li>
+
+              <h3>For Saturday:</h3>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Tennis == 'choose level'"
+              >
+                <a>Tennis:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Sat_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Tennis('1', 'Sat')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('2', 'Sat')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('3', 'Sat')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Tennis('4', 'Sat')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Badminton == 'choose level'"
+              >
+                <a>Badminton:</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Sat_Badminton_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Badminton('1', 'Sat')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('2', 'Sat')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('3', 'Sat')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Badminton('4', 'Sat')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Table_Tennis == 'choose level'"
+              >
+                <a>Table_Tennis</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Sat_Table_Tennis_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('1', 'Sat')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('2', 'Sat')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('3', 'Sat')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Table_Tennis('4', 'Sat')">4</a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-user dropdown"
+                style="margin-left: 2%;"
+                [hidden]="player_level_Squash == 'choose level'"
+              >
+                <a>Squash</a><br />
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  style="margin-left: 5%;"
+                >
+                  {{ Sat_Squash_Priority }}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="margin-left: 5%;">
+                  <li>
+                    <a (click)="Set_Priority_Squash('1', 'Sat')">1</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('2', 'Sat')">2</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('3', 'Sat')">3</a>
+                  </li>
+                  <li>
+                    <a (click)="Set_Priority_Squash('4', 'Sat')">4</a>
+                  </li>
+                </ul>
+              </li>
+
+              <Button style="margin-left: 5%;" (click)="Submit()"
+                >Submit</Button
+              >
+            </div>
+            <div class="module-foot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/.container-->
+</div>
+<!--/.wrapper-->
+
+<div class="footer">
+  <div class="container">
+    <b class="copyright">&copy; 2014 Edmin - EGrappler.com </b> All rights
+    reserved.
+  </div>
+</div>

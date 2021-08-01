@@ -1,0 +1,65 @@
+<div *ngIf="found == false; then option1; else option2"></div>
+<ng-template #option1>
+  <h3>Oh no! Admin hasn't scheduled any sessions yet!</h3>
+</ng-template>
+<ng-template #option2>
+  <h3>Practice Session Details</h3>
+  <div class="module-body table">
+    <table class="table table-message">
+      <tbody>
+        <tr class="heading">
+          <td class="cell-icon"></td>
+          <td class="cell-title">Game</td>
+          <td class="cell-title">Your Opponent</td>
+          <td class="cell-title">Your attendence</td>
+          <td class="cell-title">Opponent attendance</td>
+          <td class="cell-title">Your Ranking</td>
+          <td class="cell-title">Opponent Ranking</td>
+          <td class="cell-title">Game Court</td>
+          <td class="cell-title">Game Time</td>
+          <td class="cell-title">Result</td>
+          <td class="cell-title">Coach</td>
+        </tr>
+        <tr *ngFor="let i of sessions">
+          <td class="cell-icon"></td>
+          <td class="cell-title">{{ i.Game }}</td>
+          <div
+            *ngIf="
+              apiService.username_Player == i.Player1_username;
+              then opp1;
+            "
+          ></div>
+          <div
+            *ngIf="
+              apiService.username_Player == i.Player2_username;
+              then opp2;
+            "
+          ></div>
+          <ng-template #opp1
+            ><td class="cell-title">{{ i.Player2_username }}</td>
+              <td class="cell-title">{{ i.p1_attendence }}</td>
+              <td class="cell-title">{{ i.p2_attendence }}</td>
+              <td class="cell-title">{{ i.Player1_Ranking }}</td>
+              <td class="cell-title">{{ i.Player2_Ranking }}</td>
+              <td class="cell-title">{{ i.Game_Court }}</td>
+              <td class="cell-title">{{ i.Game_Time }}</td>
+              <td class="cell-title">{{ i.Result }}</td>
+              <td class="cell-title">{{ i.Couch_username }}</td>
+            </ng-template
+          >
+          <ng-template #opp2>
+              <td class="cell-title">{{ i.Player1_username }}</td>
+              <td class="cell-title">{{ i.p1_attendence }}</td>
+              <td class="cell-title">{{ i.p2_attendence }}</td>
+              <td class="cell-title">{{ i.Player1_Ranking }}</td>
+              <td class="cell-title">{{ i.Player2_Ranking }}</td>
+              <td class="cell-title">{{ i.Game_Court }}</td>
+              <td class="cell-title">{{ i.Game_Time }}</td>
+              <td class="cell-title">{{ i.Result }}</td>
+              <td class="cell-title">{{ i.Couch_username }}</td>
+          </ng-template>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

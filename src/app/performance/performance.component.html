@@ -1,0 +1,32 @@
+<h3>Your Performance</h3>
+<p>Note that the ranking numbers show progress</p>
+<p>the following ranges define which level you are:</p>
+<p>0-33 points: Beginner</p>
+<p>34-66 points: Medium</p>
+<p>67-100 points: Advanced</p>
+<div class="module-body table">
+  <table class="table table-message">
+    <tbody>
+      <tr class="heading">
+        <td class="cell-icon"></td>
+        <td class="cell-title">Ranking</td>
+        <td class="cell-title">Attendence</td>
+        <td class="cell-title">Result</td>
+      </tr>
+      <tr *ngFor="let r of rankings">
+        <td class="cell-icon"></td>
+        <td class="cell-title">{{ r[0] }}</td>
+        <div *ngIf="isPresent(r[1]); then op1; else op2"></div>
+        <ng-template #op1>
+          <td class="cell-title" style="color: rgb(33, 248, 33);">
+            {{ r[1] }}
+          </td>
+        </ng-template>
+        <ng-template #op2>
+          <td class="cell-title" style="color: red;">{{ r[1] }}</td>
+        </ng-template>
+        <td class="cell-title">{{ r[2] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
